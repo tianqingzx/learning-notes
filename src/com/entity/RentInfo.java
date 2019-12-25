@@ -1,5 +1,9 @@
 package com.entity;
 
+/**
+ * 该类被使用来记录用户输入的租车条件
+ * @author ZX
+ */
 public class RentInfo {
     private String bDate;
     private String rDate;

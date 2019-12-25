@@ -3,12 +3,14 @@ package com.view;
 import java.util.*;
 
 import com.entity.Car;
+import com.entity.Order;
 import com.entity.RentInfo;
+import com.entity.Teacher;
 import com.service.RentService;
 import com.service.impl.RentServiceimpl;
 
 /**
- * @author user
+ * @author ZX
  *
  */
 public class RentCar {
@@ -16,8 +18,10 @@ public class RentCar {
     private RentService rentService = new RentServiceimpl();
     public RentInfo ri = new RentInfo();
     public ArrayList<Car> carlist;
+    public Teacher teacher;
 
-    public void rent() {
+    public void rent(Teacher teach) {
+        teacher = teach;
         boolean flag = true;
         while (flag) {
             System.out.println("（时间格式：yyyy-mm-dd）");
@@ -49,7 +53,6 @@ public class RentCar {
 
     public boolean afterRentInfo(boolean flag){
         while (flag) {
-            System.out.println("1、选择租车\t2、重新查询\t3、返回主菜单");
             System.out.print("请输入（1、2或3）：");
             int select = sc.nextInt();
             if (select == 1) {
@@ -69,6 +72,16 @@ public class RentCar {
         System.out.print("请输入你想要选择的车辆：");
         int num = sc.nextInt();
         Car car = carlist.get(num);
-        System.out.println("rentService.rent()");
+        Order order = new Order();
+        order.setcId(car.getcId());
+        order.settId(teacher.gettId());
+        order.setbDate(ri.getbDate());
+        order.setrDate(ri.getrDate());
+        order.setDistance(ri.getDistance());
+        if (rentService.rent(order)) {
+            System.out.println("恭喜租借成功\n");
+        }else {
+            System.out.println("租借失败\n");
+        }
     }
 }

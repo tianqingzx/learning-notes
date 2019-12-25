@@ -1,9 +1,12 @@
 package com.view;
 
+import com.entity.Order;
 import com.entity.Teacher;
 import com.service.TeachService;
 import com.service.impl.TeachServiceImpl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class UiMain {
@@ -58,7 +61,7 @@ public class UiMain {
             if(select == 1) {
                 rentCar();
             }else if(select == 2) {
-                System.out.println("getOrders()");
+                getOrders();
             }else if(select == 3) {
                 flag = false;
             }else {
@@ -68,6 +71,22 @@ public class UiMain {
     }
 
     public void rentCar(){
-        rc.rent();
+        rc.rent(teacher);
+    }
+
+    public void getOrders(){
+        ArrayList<Order> orderlist = teachService.getOrders(teacher);
+        if (orderlist != null) {
+            Order order;
+            int num = 1;
+            Iterator<Order> it = orderlist.iterator();
+            while (it.hasNext()) {
+                order = it.next();
+                System.out.println(num + "\t" + order.toString());
+                num += 1;
+            }
+        }else {
+            System.out.println("你暂时没有订单记录");
+        }
     }
 }

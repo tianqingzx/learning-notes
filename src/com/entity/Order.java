@@ -6,16 +6,16 @@ public class Order {
     private String tId;
     private String cId;
     private int state;
-    private Date bDate;
+    private String bDate;
     private int distance;
     private int charge;
-    private Date rDate;
+    private String rDate;
     private int oId;
 
     public Order() {
     }
 
-    public Order(String tId, String cId, int state, Date bDate, int distance, int charge, Date rDate, int oId) {
+    public Order(String tId, String cId, int state, String bDate, int distance, int charge, String rDate, int oId) {
         this.tId = tId;
         this.cId = cId;
         this.state = state;
@@ -50,11 +50,11 @@ public class Order {
         this.state = state;
     }
 
-    public Date getbDate() {
+    public String getbDate() {
         return bDate;
     }
 
-    public void setbDate(Date bDate) {
+    public void setbDate(String bDate) {
         this.bDate = bDate;
     }
 
@@ -74,11 +74,11 @@ public class Order {
         this.charge = charge;
     }
 
-    public Date getrDate() {
+    public String getrDate() {
         return rDate;
     }
 
-    public void setrDate(Date rDate) {
+    public void setrDate(String rDate) {
         this.rDate = rDate;
     }
 
