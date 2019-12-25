@@ -1,13 +1,13 @@
-package com.service.impl;
+package com.dao.impl;
 
+import com.dao.RentDao;
 import com.entity.Car;
 import com.entity.Order;
 import com.entity.RentInfo;
-import com.service.RentService;
 
 import java.util.ArrayList;
 
-public class RentServiceimpl implements RentService {
+public class RentDaoImpl implements RentDao {
     @Override
     public ArrayList<Car> findCar(RentInfo ri) {
         return null;
@@ -15,6 +15,6 @@ public class RentServiceimpl implements RentService {
 
     @Override
     public boolean rent(Order order) {
-        return true;
+        return false;
     }
 }

@@ -7,7 +7,7 @@ import com.entity.Order;
 import com.entity.RentInfo;
 import com.entity.Teacher;
 import com.service.RentService;
-import com.service.impl.RentServiceimpl;
+import com.service.impl.RentServiceImpl;
 
 /**
  * @author ZX
@@ -15,7 +15,7 @@ import com.service.impl.RentServiceimpl;
  */
 public class RentCar {
     private Scanner sc = new Scanner(System.in);
-    private RentService rentService = new RentServiceimpl();
+    private RentService rentService = new RentServiceImpl();
     public RentInfo ri = new RentInfo();
     public ArrayList<Car> carlist;
     public Teacher teacher;
