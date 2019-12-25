@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TeachDaoImpl implements TeachDao {
     private Connection conn = null;
@@ -20,7 +19,6 @@ public class TeachDaoImpl implements TeachDao {
         conn = DBUtil.getInstance().getConnection();
         String sql = "select * from teacher where t_id=? and t_password=?";
 
-        Teacher teacherDB = null;
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, teach.gettId());

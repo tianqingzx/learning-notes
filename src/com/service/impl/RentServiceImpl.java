@@ -20,12 +20,14 @@ public class RentServiceImpl implements RentService {
     /**
      * 这里有逻辑需要处理：charge 花销的计算
      * 每1公里收费2元
+     * 默认提交后状态为0
      * @param order
      * @return
      */
     @Override
     public boolean rent(Order order) {
         order.setCharge(order.getDistance() * 2);
+        order.setState(0);
         return rentDao.rent(order);
     }
 }
