@@ -7,17 +7,19 @@ public class Car {
     private String driver;
     private String dTele;
     private int cDistance;
+    private int price;
 
     public Car() {
     }
 
-    public Car(String cId, String comId, int carAccommodate, String driver, String dTele, int cDistance) {
+    public Car(String cId, String comId, int carAccommodate, String driver, String dTele, int cDistance, int price) {
         this.cId = cId;
         this.comId = comId;
         this.carAccommodate = carAccommodate;
         this.driver = driver;
         this.dTele = dTele;
         this.cDistance = cDistance;
+        this.price = price;
     }
 
     public String getcId() {
@@ -68,6 +70,14 @@ public class Car {
         this.cDistance = cDistance;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -77,6 +87,7 @@ public class Car {
                 ", driver='" + driver + '\'' +
                 ", dTele='" + dTele + '\'' +
                 ", cDistance=" + cDistance +
+                ", price=" + price +
                 '}';
     }
 }

@@ -18,10 +18,10 @@ public class RentDaoImpl implements RentDao {
     @Override
     public ArrayList<Car> findCar(RentInfo ri) {
         conn = DBUtil.getInstance().getConnection();
-        String sql = "select * from car where c_id not in (" +
-                "select distinct c_id from orders where " +
-                "Bdate>=? and Rdate<=?" +
-                ") and c_distance>=? and car_accommodate>=?";
+        String sql = "select * from car where car_id not in (" +
+                "select distinct car_id from orders where " +
+                "begin_date>=? and end_date<=?" +
+                ") and car.max_distance>=? and car_capacity>=?";
 
         ArrayList<Car> carlist = new ArrayList<>();
         try {
@@ -33,12 +33,13 @@ public class RentDaoImpl implements RentDao {
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 Car car = new Car();
-                car.setcId(rs.getString("c_id"));
-                car.setComId(rs.getString("com_id"));
+                car.setcId(rs.getString("car_id"));
+                car.setComId(rs.getString("company_id"));
                 car.setDriver(rs.getString("driver"));
-                car.setCarAccommodate(rs.getInt("car_accommodate"));
-                car.setcDistance(rs.getInt("c_distance"));
+                car.setCarAccommodate(rs.getInt("car_capacity"));
+                car.setcDistance(rs.getInt("max_distance"));
                 car.setdTele(rs.getString("d_tel"));
+                car.setPrice(rs.getInt("price"));
                 carlist.add(car);
             }
         } catch (SQLException e) {
@@ -52,38 +53,26 @@ public class RentDaoImpl implements RentDao {
     @Override
     public boolean rent(Order order) {
         conn = DBUtil.getInstance().getConnection();
-        String sql_1 = "select max(o_id) from orders";
-        String sql_2 = "insert into orders(" +
-                "c_id,t_id,distance,Bdate,Rdate,charge,o_id,state) values (" +
-                "?,?,?,?,?,?,?,?)";
+        String sql = "insert into orders(" +
+                "car_id,t_id,distance,begin_date,end_date,order_id,state) values (" +
+                "?,?,?,?,?,?,?)";
 
-        int o_id = 0;
         int flag = 0;
         try {
-            PreparedStatement pre = conn.prepareStatement(sql_1);
-            ResultSet rs = pre.executeQuery();
-            if (rs.next()) {
-                o_id = rs.getInt("o_id") + 1;
-            }
-            pre = conn.prepareStatement(sql_2);
+            PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, order.getcId());
             pre.setString(2, order.gettId());
             pre.setInt(3, order.getDistance());
             pre.setString(4, order.getbDate());
             pre.setString(5, order.getrDate());
-            pre.setInt(6, order.getCharge());
-            pre.setInt(7, o_id);
-            pre.setInt(8, order.getState());
+            pre.setString(6, order.getoId());
+            pre.setInt(7, order.getState());
             flag = pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBUtil.getInstance().closeConn(conn);
         }
-        if (flag > 0) {
-            return true;
-        }else {
-            return false;
-        }
+        return flag > 0;
     }
 }

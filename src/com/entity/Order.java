@@ -1,27 +1,23 @@
 package com.entity;
 
-import java.util.Date;
-
 public class Order {
     private String tId;
     private String cId;
     private int state;
     private String bDate;
     private int distance;
-    private int charge;
     private String rDate;
-    private int oId;
+    private String oId;
 
     public Order() {
     }
 
-    public Order(String tId, String cId, int state, String bDate, int distance, int charge, String rDate, int oId) {
+    public Order(String tId, String cId, int state, String bDate, int distance, String rDate, String oId) {
         this.tId = tId;
         this.cId = cId;
         this.state = state;
         this.bDate = bDate;
         this.distance = distance;
-        this.charge = charge;
         this.rDate = rDate;
         this.oId = oId;
     }
@@ -66,14 +62,6 @@ public class Order {
         this.distance = distance;
     }
 
-    public int getCharge() {
-        return charge;
-    }
-
-    public void setCharge(int charge) {
-        this.charge = charge;
-    }
-
     public String getrDate() {
         return rDate;
     }
@@ -82,11 +70,11 @@ public class Order {
         this.rDate = rDate;
     }
 
-    public int getoId() {
+    public String getoId() {
         return oId;
     }
 
-    public void setoId(int oId) {
+    public void setoId(String oId) {
         this.oId = oId;
     }
 
@@ -98,7 +86,6 @@ public class Order {
                 ", state=" + state +
                 ", bDate=" + bDate +
                 ", distance=" + distance +
-                ", charge=" + charge +
                 ", rDate=" + rDate +
                 ", oId=" + oId +
                 '}';

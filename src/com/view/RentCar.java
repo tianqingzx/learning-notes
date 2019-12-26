@@ -16,9 +16,9 @@ import com.service.impl.RentServiceImpl;
 public class RentCar {
     private Scanner sc = new Scanner(System.in);
     private RentService rentService = new RentServiceImpl();
-    public RentInfo ri = new RentInfo();
-    public ArrayList<Car> carlist;
-    public Teacher teacher;
+    private RentInfo ri = new RentInfo();
+    private ArrayList<Car> carlist;
+    private Teacher teacher;
 
     public void rent(Teacher teach) {
         teacher = teach;
@@ -51,8 +51,9 @@ public class RentCar {
         }
     }
 
-    public boolean afterRentInfo(boolean flag){
+    private boolean afterRentInfo(boolean flag){
         while (flag) {
+            System.out.println("1、选择租用\t2、重新选择\t3、返回主菜单");
             System.out.print("请输入（1、2或3）：");
             int select = sc.nextInt();
             if (select == 1) {
@@ -68,8 +69,8 @@ public class RentCar {
         return flag;
     }
 
-    public void rentMethod() {
-        System.out.print("请输入你想要选择的车辆：");
+    private void rentMethod() {
+        System.out.print("请输入你想要选择的车辆序号：");
         int num = sc.nextInt();
         Car car = carlist.get(num);
         Order order = new Order();

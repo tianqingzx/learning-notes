@@ -73,12 +73,11 @@ public class TeachDaoImpl implements TeachDao {
             while (rs.next()) {
                 Order order = new Order();
                 order.settId(rs.getString("t_id"));
-                order.setcId(rs.getString("c_id"));
+                order.setcId(rs.getString("car_id"));
                 order.setDistance(rs.getInt("distance"));
-                order.setCharge(rs.getInt("charge"));
-                order.setbDate(rs.getString("Bdate"));
-                order.setrDate(rs.getString("Rdate"));
-                order.setoId(rs.getInt("o_id"));
+                order.setbDate(rs.getString("begin_date"));
+                order.setrDate(rs.getString("end_date"));
+                order.setoId(rs.getString("order_id"));
                 order.setState(rs.getInt("state"));
                 orderlist.add(order);
             }
