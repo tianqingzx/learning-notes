@@ -1,25 +1,43 @@
 package com.entity;
 
 public class Order {
+    private String orderId;
     private String tId;
-    private String cId;
+    private String carId;
     private int state;
-    private String bDate;
+    private String beginDate;
     private int distance;
-    private String rDate;
-    private String oId;
+    private String endDate;
+    private String diver;
+    private String dTel;
+    private String companyName;
+    private String companyTel;
+    private int charge;
 
     public Order() {
     }
 
-    public Order(String tId, String cId, int state, String bDate, int distance, String rDate, String oId) {
+    public Order(String orderId, String tId, String carId, int state, String beginDate, int distance, String endDate, String diver, String dTel, String companyName, String companyTel, int charge) {
+        this.orderId = orderId;
         this.tId = tId;
-        this.cId = cId;
+        this.carId = carId;
         this.state = state;
-        this.bDate = bDate;
+        this.beginDate = beginDate;
         this.distance = distance;
-        this.rDate = rDate;
-        this.oId = oId;
+        this.endDate = endDate;
+        this.diver = diver;
+        this.dTel = dTel;
+        this.companyName = companyName;
+        this.companyTel = companyTel;
+        this.charge = charge;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String gettId() {
@@ -30,12 +48,12 @@ public class Order {
         this.tId = tId;
     }
 
-    public String getcId() {
-        return cId;
+    public String getCarId() {
+        return carId;
     }
 
-    public void setcId(String cId) {
-        this.cId = cId;
+    public void setCarId(String carId) {
+        this.carId = carId;
     }
 
     public int getState() {
@@ -46,12 +64,12 @@ public class Order {
         this.state = state;
     }
 
-    public String getbDate() {
-        return bDate;
+    public String getBeginDate() {
+        return beginDate;
     }
 
-    public void setbDate(String bDate) {
-        this.bDate = bDate;
+    public void setBeginDate(String beginDate) {
+        this.beginDate = beginDate;
     }
 
     public int getDistance() {
@@ -62,32 +80,86 @@ public class Order {
         this.distance = distance;
     }
 
-    public String getrDate() {
-        return rDate;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setrDate(String rDate) {
-        this.rDate = rDate;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public String getoId() {
-        return oId;
+    public String getDiver() {
+        return diver;
     }
 
-    public void setoId(String oId) {
-        this.oId = oId;
+    public void setDiver(String diver) {
+        this.diver = diver;
+    }
+
+    public String getdTel() {
+        return dTel;
+    }
+
+    public void setdTel(String dTel) {
+        this.dTel = dTel;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyTel() {
+        return companyTel;
+    }
+
+    public void setCompanyTel(String companyTel) {
+        this.companyTel = companyTel;
+    }
+
+    public int getCharge() {
+        return charge;
+    }
+
+    public void setCharge(int charge) {
+        this.charge = charge;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
-                "tId='" + tId + '\'' +
-                ", cId='" + cId + '\'' +
-                ", state=" + state +
-                ", bDate=" + bDate +
-                ", distance=" + distance +
-                ", rDate=" + rDate +
-                ", oId=" + oId +
-                '}';
+        String orderinfo = null;
+        if (state == 0) {
+            orderinfo = "订单[" +
+                    "车牌号：'" + carId + '\'' +
+                    ", 状态：未完成" +
+                    ", 开始时间：'" + beginDate + '\'' +
+                    ", 结束时间'" + endDate + '\'' +
+                    ", 行驶距离" + distance +
+                    ", 司机名：'" + diver + '\'' +
+                    ", 司机电话：'" + dTel + '\'' +
+                    ", 所属公司：'" + companyName + '\'' +
+                    ", 公司电话：'" + companyTel + '\'' +
+                    ", 花费：" + charge +
+                    ']';
+        }else {
+            orderinfo = "订单[" +
+                    "车牌号：'" + carId + '\'' +
+                    ", 状态：已完成" +
+                    ", 开始时间：'" + beginDate + '\'' +
+                    ", 结束时间'" + endDate + '\'' +
+                    ", 行驶距离" + distance +
+                    ", 司机名：'" + diver + '\'' +
+                    ", 司机电话：'" + dTel + '\'' +
+                    ", 所属公司：'" + companyName + '\'' +
+                    ", 公司电话：'" + companyTel + '\'' +
+                    ", 花费：" + charge +
+                    ']';
+        }
+        return orderinfo;
     }
+
+
 }

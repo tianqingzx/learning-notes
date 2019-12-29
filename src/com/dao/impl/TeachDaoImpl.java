@@ -63,7 +63,7 @@ public class TeachDaoImpl implements TeachDao {
     @Override
     public ArrayList<Order> getOrders(Teacher teach) {
         conn = DBUtil.getInstance().getConnection();
-        String sql = "select * from orders where t_id=?";
+        String sql = "select * from t_order where t_id=?";
 
         ArrayList<Order> orderlist = new ArrayList<>();
         try {
@@ -73,12 +73,17 @@ public class TeachDaoImpl implements TeachDao {
             while (rs.next()) {
                 Order order = new Order();
                 order.settId(rs.getString("t_id"));
-                order.setcId(rs.getString("car_id"));
+                order.setCarId(rs.getString("car_id"));
                 order.setDistance(rs.getInt("distance"));
-                order.setbDate(rs.getString("begin_date"));
-                order.setrDate(rs.getString("end_date"));
-                order.setoId(rs.getString("order_id"));
+                order.setBeginDate(rs.getString("begin_date"));
+                order.setEndDate(rs.getString("end_date"));
+                order.setOrderId(rs.getString("order_id"));
                 order.setState(rs.getInt("state"));
+                order.setDiver(rs.getString("driver"));
+                order.setdTel(rs.getString("d_tel"));
+                order.setCompanyName(rs.getString("company_name"));
+                order.setCompanyTel(rs.getString("company_tel"));
+                order.setCharge(rs.getInt("charge"));
                 orderlist.add(order);
             }
         } catch (SQLException e) {

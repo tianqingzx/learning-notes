@@ -1,12 +1,11 @@
 package com.dao;
 
-import com.entity.Car;
 import com.entity.Order;
-import com.entity.RentInfo;
+import com.entity.SearchInfo;
 
 import java.util.ArrayList;
 
 public interface RentDao {
-    ArrayList<Car> findCar(RentInfo ri);
+    ArrayList<SearchInfo> findCar(SearchInfo si);
     boolean rent(Order order);
 }

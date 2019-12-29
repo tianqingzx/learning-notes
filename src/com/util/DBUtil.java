@@ -30,7 +30,7 @@ public class DBUtil {
 //		Connection conn = null;
         try {
             String userName = "root";
-            String url = "jdbc:mysql://localhost:3306/rentcar?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+            String url = "jdbc:mysql://localhost:3306/rent_car?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
             String password = "1234";
             conn = DriverManager.getConnection(url, userName, password);
         } catch (Exception e) {

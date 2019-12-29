@@ -1,9 +1,8 @@
 package com.dao.impl;
 
 import com.dao.RentDao;
-import com.entity.Car;
 import com.entity.Order;
-import com.entity.RentInfo;
+import com.entity.SearchInfo;
 import com.util.DBUtil;
 
 import java.sql.Connection;
@@ -16,38 +15,37 @@ public class RentDaoImpl implements RentDao {
     private Connection conn = null;
 
     @Override
-    public ArrayList<Car> findCar(RentInfo ri) {
+    public ArrayList<SearchInfo> findCar(SearchInfo si) {
         conn = DBUtil.getInstance().getConnection();
-        String sql = "select * from car where car_id not in (" +
-                "select distinct car_id from orders where " +
+        String sql = "select * from search_info where car_id not in (" +
+                "select distinct car_id from t_order where " +
                 "begin_date>=? and end_date<=?" +
-                ") and car.max_distance>=? and car_capacity>=?";
+                ") and max_distance>=? and car_capacity>=?";
 
-        ArrayList<Car> carlist = new ArrayList<>();
+        ArrayList<SearchInfo> searchInfos = new ArrayList<>();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, ri.getbDate());
-            pre.setString(2, ri.getrDate());
-            pre.setInt(3, ri.getDistance());
-            pre.setInt(4, ri.getAccommodate());
+            pre.setString(1, si.getBeginDate());
+            pre.setString(2, si.getEndDate());
+            pre.setInt(3, si.getMaxDistance());
+            pre.setInt(4, si.getCarCapacity());
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
-                Car car = new Car();
-                car.setcId(rs.getString("car_id"));
-                car.setComId(rs.getString("company_id"));
-                car.setDriver(rs.getString("driver"));
-                car.setCarAccommodate(rs.getInt("car_capacity"));
-                car.setcDistance(rs.getInt("max_distance"));
-                car.setdTele(rs.getString("d_tel"));
-                car.setPrice(rs.getInt("price"));
-                carlist.add(car);
+                SearchInfo searchInfo = new SearchInfo();
+                searchInfo.setCarId(rs.getString("car_id"));
+                searchInfo.setCompanyName(rs.getString("company_name"));
+                searchInfo.setCompanyTel(rs.getString("company_tel"));
+                searchInfo.setCarCapacity(rs.getInt("car_capacity"));
+                searchInfo.setMaxDistance(rs.getInt("max_distance"));
+                searchInfo.setPrice(rs.getInt("price"));
+                searchInfos.add(searchInfo);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBUtil.getInstance().closeConn(conn);
         }
-        return carlist;
+        return searchInfos;
     }
 
     @Override
@@ -60,12 +58,12 @@ public class RentDaoImpl implements RentDao {
         int flag = 0;
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, order.getcId());
+            pre.setString(1, order.getCarId());
             pre.setString(2, order.gettId());
             pre.setInt(3, order.getDistance());
-            pre.setString(4, order.getbDate());
-            pre.setString(5, order.getrDate());
-            pre.setString(6, order.getoId());
+            pre.setString(4, order.getBeginDate());
+            pre.setString(5, order.getEndDate());
+            pre.setString(6, order.getOrderId());
             pre.setInt(7, order.getState());
             flag = pre.executeUpdate();
         } catch (SQLException e) {

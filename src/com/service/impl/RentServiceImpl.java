@@ -2,9 +2,8 @@ package com.service.impl;
 
 import com.dao.RentDao;
 import com.dao.impl.RentDaoImpl;
-import com.entity.Car;
 import com.entity.Order;
-import com.entity.RentInfo;
+import com.entity.SearchInfo;
 import com.service.RentService;
 
 import java.util.ArrayList;
@@ -14,8 +13,8 @@ public class RentServiceImpl implements RentService {
     private RentDao rentDao = new RentDaoImpl();
 
     @Override
-    public ArrayList<Car> findCar(RentInfo ri) {
-        return rentDao.findCar(ri);
+    public ArrayList<SearchInfo> findCar(SearchInfo si) {
+        return rentDao.findCar(si);
     }
 
     /**
@@ -28,14 +27,14 @@ public class RentServiceImpl implements RentService {
     @Override
     public boolean rent(Order order) {
         String order_id = "";
-        String begin_date = order.getbDate();
-        String car_id = order.getcId();
+        String begin_date = order.getBeginDate();
+        String car_id = order.getCarId();
 
         if (begin_date != null && car_id != null) {
             String[] str = begin_date.split("-");
             char[] chars = car_id.toCharArray();
-            System.out.println("str[" + str[0]  + str[1] + str[2] + "]");
-            System.out.println("chars[" + chars[0]  + "]");
+//            System.out.println("str[" + str[0]  + str[1] + str[2] + "]");
+//            System.out.println("chars[" + chars[0]  + "]");
             order_id = str[0] + str[1] + str[2] + chars[4] + chars[5] + chars[6];
         }
 
@@ -43,7 +42,7 @@ public class RentServiceImpl implements RentService {
         int rand_num = random.nextInt(10000);
         order_id = order_id + rand_num;
 
-        order.setoId(order_id);
+        order.setOrderId(order_id);
         order.setState(0);
         return rentDao.rent(order);
     }

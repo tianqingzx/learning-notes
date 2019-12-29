@@ -2,9 +2,8 @@ package com.view;
 
 import java.util.*;
 
-import com.entity.Car;
 import com.entity.Order;
-import com.entity.RentInfo;
+import com.entity.SearchInfo;
 import com.entity.Teacher;
 import com.service.RentService;
 import com.service.impl.RentServiceImpl;
@@ -16,8 +15,8 @@ import com.service.impl.RentServiceImpl;
 public class RentCar {
     private Scanner sc = new Scanner(System.in);
     private RentService rentService = new RentServiceImpl();
-    private RentInfo ri = new RentInfo();
-    private ArrayList<Car> carlist;
+    private SearchInfo si = new SearchInfo();
+    private ArrayList<SearchInfo> searchInfos;
     private Teacher teacher;
 
     public void rent(Teacher teach) {
@@ -26,21 +25,21 @@ public class RentCar {
         while (flag) {
             System.out.println("（时间格式：yyyy-mm-dd）");
             System.out.print("请输入你想要租车的开始时间：");
-            ri.setbDate(sc.next());
+            si.setBeginDate(sc.next());
             System.out.print("请输入租车结束时间：");
-            ri.setrDate(sc.next());
+            si.setEndDate(sc.next());
             System.out.print("请输入搭乘人数：");
-            ri.setAccommodate(sc.nextInt());
+            si.setCarCapacity(sc.nextInt());
             System.out.print("请输入行驶里程数：");
-            ri.setDistance(sc.nextInt());
-            carlist = rentService.findCar(ri);
-            if (carlist != null){
+            si.setMaxDistance(sc.nextInt());
+            searchInfos = rentService.findCar(si);
+            Iterator<SearchInfo> it = searchInfos.iterator();
+            if (it.hasNext()){
                 int count = 1;
-                Car car;
-                Iterator<Car> it = carlist.iterator();
+                SearchInfo searchInfo;
                 while (it.hasNext()){
-                    car = it.next();
-                    System.out.println(count + "\t" + car.toString());
+                    searchInfo = it.next();
+                    System.out.println(count + "\t" + searchInfo.toString());
                     count += 1;
                 }
                 flag = afterRentInfo(flag);
@@ -59,7 +58,7 @@ public class RentCar {
             if (select == 1) {
                 rentMethod();
             } else if (select == 2){
-                return false;
+                break;
             } else if (select == 3){
                 flag = false;
             } else {
@@ -72,13 +71,13 @@ public class RentCar {
     private void rentMethod() {
         System.out.print("请输入你想要选择的车辆序号：");
         int num = sc.nextInt();
-        Car car = carlist.get(num);
+        SearchInfo searchInfo = searchInfos.get(num);
         Order order = new Order();
-        order.setcId(car.getcId());
+        order.setCarId(searchInfo.getCarId());
         order.settId(teacher.gettId());
-        order.setbDate(ri.getbDate());
-        order.setrDate(ri.getrDate());
-        order.setDistance(ri.getDistance());
+        order.setBeginDate(si.getBeginDate());
+        order.setEndDate(si.getEndDate());
+        order.setDistance(si.getMaxDistance());
         if (rentService.rent(order)) {
             System.out.println("恭喜租借成功\n");
         }else {
